@@ -20,6 +20,6 @@ public class TestProperties {
         homeActions.setString("Hola");
         homeActions.clickBtnDisplayTextView();
 
-        System.out.println("chao");
+        System.out.println("cha");
     }
 }

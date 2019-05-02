@@ -1,6 +1,6 @@
 package com.nubi.ScreensPackages.homeScreen;
 
-import com.nubi.ScreensPackages.ScreenBase;
+import com.nubi.ScreensPackages.base.ScreenBase;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebElement;

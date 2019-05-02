@@ -1,4 +1,4 @@
-package com.nubi.ScreensPackages;
+package com.nubi.ScreensPackages.base;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
