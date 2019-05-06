@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="NUBISuite">
+
+
+
+    <test name="NUBI001IngresarMailValidoTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI001IngresarMailValidoTest" ></class>
+        </classes>
+    </test>
+
+   <!-- <test name="NUBI002IngresarMailInvalidoTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI002IngresarMailInvalidoTest" ></class>
+        </classes>
+    </test>-->
+
+</suite>
