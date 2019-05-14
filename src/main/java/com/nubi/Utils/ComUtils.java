@@ -2,12 +2,19 @@ package com.nubi.Utils;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +35,7 @@ public class ComUtils {
     private static DesiredCapabilities caps = new DesiredCapabilities();
    // private static URL serverUrl;
     private static AndroidDriver driver;
+    private static DateFormat date;
 
     public static void loadConfigProp(String propertyFileName) throws IOException{
 
@@ -51,6 +59,7 @@ public class ComUtils {
         caps.setCapability(MobileCapabilityType.PLATFORM_NAME, ComUtils.PLATFORM_NAME);
         caps.setCapability(MobileCapabilityType.APP, ComUtils.APP_NAME);
         caps.setCapability(MobileCapabilityType.DEVICE_NAME, ComUtils.DEVICE_NAME);
+        System.out.println(caps);
     }
 
     public static AndroidDriver getDriver() throws MalformedURLException{
@@ -62,5 +71,30 @@ public class ComUtils {
        // AndroidDriver driver = new AndroidDriver(new URL(serverUrl), caps);
 
         return driver;
+    }
+
+    public static void takeScreeShoot(String path, String fileName){
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        date = new SimpleDateFormat("dd-MMM-yyyy__hh_mm_ssaa");
+        String destFolder = date.format(new Date());
+        new File(path+"\\"+date.format(new Date())).mkdirs();
+
+        try{
+            FileUtils.copyFile(scrFile, new File(path+"/"+destFolder+"/"+fileName));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void takeScreeShootIter(String path, String dt, String fileName){
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
+        new File(path+"/"+dt).mkdirs();
+
+        try{
+            FileUtils.copyFile(scrFile, new File(path+"/"+dt+"/"+fileName));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

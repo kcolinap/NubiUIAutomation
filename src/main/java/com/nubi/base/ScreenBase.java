@@ -5,7 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 
-public class    ScreenBase {
+public class ScreenBase {
 
     public static AndroidDriver driver;
 
@@ -22,9 +22,5 @@ public class    ScreenBase {
 
     public void waitTime() throws InterruptedException{
         Thread.sleep(ComUtils.DEFAULT_WAIT_TIME);
-    }
-
-    public void hideKeyword(){
-        driver.hideKeyboard();
     }
 }

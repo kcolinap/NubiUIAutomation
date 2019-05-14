@@ -1,136 +1,111 @@
 package com.nubi.testcases.registro.email;
 
-import com.nubi.screens.registroScreens.EmailScreen;
-import com.nubi.base.TestBase;
+import com.nubi.Utils.ComUtils;
+import com.nubi.dataproviders.DataProviderRegistro;
+import com.nubi.screens.registroScreens.email.actions.EmailScreenActions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import com.nubi.base.TestBase;
 
 public class NUBI002IngresarMailInvalidoTest extends TestBase {
 
     private boolean aux = false;
-    //public EmailScreen rActions = new EmailScreen(driver);
+    private static String testPath = path + "\\registro\\datosPersonales";
+    private static EmailScreenActions emailScreenActions;
+
     @BeforeTest
     public void initTest(){
-        EmailScreen rActions = new EmailScreen(driver);
+        try{
+            setUp();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        emailScreenActions = new EmailScreenActions(driver);
     }
 
-    /*
-        Validar un email sin @
-     */
-    @Test
-    public void validateSinArroba(){
 
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail("testtest.com");
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
+    @Test(dataProvider = "dataproviderRegistroEmailInvalido", dataProviderClass = DataProviderRegistro.class)
+    public void validateEmailInvalido(String email, String imgName){
 
-    }
+        try {
 
-    /*
-        Validar un email sin .com
-     */
-    @Test
-    public void validateSinCom(){
+            emailScreenActions.setEmail(email);
+            aux = emailScreenActions.validarButtonSiguienteIsEnabled();
 
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail("testtest@");
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
+            if(imgName.contentEquals("carEspeciales")){
+                if(aux==true){
+                    throw new Exception();
+                }
 
-    }
+                Assert.assertEquals(false, aux);//Assert del boton siguiente, se espera false
 
-    /*
-        Validar un email sin puntos
-     */
-    @Test
-    public void validateSinPuntos(){
+                aux=emailScreenActions.validarLblFormatoNoValidoIsDisplayed();
 
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail("testtest@com");
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
-
-    }
-
-    /*
-        Validar campo email vacio
-     */
-    @Test
-    public void validateSinEmail(){
-
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail("");
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
-
-    }
-
-    /*
-        Validar con caracteres especiales excepto(@,.,-,_)
-     */
-    @Test
-    public void validateCaracteresEspeciales() throws InterruptedException{
-
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail("test#*@test.com");
-        rActions.waitTime();
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
-        aux=rActions.validarLabelFormatoNoValido();
-        Assert.assertEquals(aux, true);
-
-    }
-
-    /*
-        Validar con una letra
-     */
-    @Test
-    public void validateEmailConLetra(){
-
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail("t");
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
+                if(aux==false){
+                    throw new Exception();
+                }
+                Assert.assertEquals(true, aux);//Assert del text formato no valido, se espera true
 
 
-    }
+            }else{
+                if(aux==true){
+                    throw new Exception();
+                }
 
-    /*
-        Validar con un numero
-     */
-    @Test
-    public void validateEmailConNumero(){
+                Assert.assertEquals(false, aux);//Assert del boton siguiente, se espera false
+            }
 
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail("2");
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
 
+            ComUtils.takeScreeShootIter(testPath, dateFolder, imgName+".png");
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+            ComUtils.takeScreeShootIter(testPath, dateFolder, "emailInValidoError.png");
+            Assert.assertEquals(false, aux);
+
+        }
     }
 
     /*
         Validar con email que supera los 254 caracteres
      */
-    @Test
+    @Test()
     public void validateEmailConMaximoCaracteres(){
 
         int resultado;
         char letra;
         String texto ="";
 
-        for (int i=0; i<257; i++){
-            resultado=(int)(Math.random()*26+65);//Sumamos al numero de letras (sin ñ) el valor en ASCII
-            letra = (char)resultado;
-            texto+=letra;
+        try{
+            for (int i=0; i<257; i++){
+                resultado=(int)(Math.random()*26+65);//Sumamos al numero de letras (sin ñ) el valor en ASCII
+                letra = (char)resultado;
+                texto+=letra;
+            }
+
+            emailScreenActions.setEmail(texto);
+            aux = emailScreenActions.validarButtonSiguienteIsEnabled();
+            if(aux==true){
+                throw new Exception();
+            }
+            Assert.assertEquals(false, aux);
+
+            aux=emailScreenActions.validarLblFormatoNoValidoIsDisplayed();
+            if(aux==false){
+                throw new Exception();
+            }
+            Assert.assertEquals(true, aux);
+
+            ComUtils.takeScreeShootIter(testPath, dateFolder, "maximocaracteres.png");
+
+        }catch (Exception e){
+            e.printStackTrace();
+            ComUtils.takeScreeShootIter(testPath, dateFolder, "emailInValidoError.png");
+            Assert.assertEquals(true, aux);
         }
 
-        EmailScreen rActions = new EmailScreen(driver);
-        rActions.setEmail(texto+"@test.com");
-        aux = rActions.validarButtonSiguiiente();
-        Assert.assertEquals(aux, false);
-        aux=rActions.validarLabelFormatoNoValido();
-        Assert.assertEquals(aux, true);
     }
 }

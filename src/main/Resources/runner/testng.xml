@@ -3,16 +3,62 @@
 
 
 
-    <test name="NUBI001IngresarMailValidoTest">
+    <!--<test name="NUBI001IngresarMailValidoTest">
         <classes>
             <class name="com.nubi.testcases.registro.email.NUBI001IngresarMailValidoTest" ></class>
         </classes>
     </test>
 
-   <!-- <test name="NUBI002IngresarMailInvalidoTest">
-        <classes>
-            <class name="com.nubi.testcases.registro.email.NUBI002IngresarMailInvalidoTest" ></class>
-        </classes>
-    </test>-->
+    <test name="NUBI002IngresarMailInvalidoTest">
+         <classes>
+             <class name="com.nubi.testcases.registro.email.NUBI002IngresarMailInvalidoTest" ></class>
+         </classes>
+     </test>
 
-</suite>
+     <test name="NUBI005RetomarRegistroScreenTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI005RetomarRegistroScreenTest" ></class>
+        </classes>
+    </test>
+     -->
+
+    <test name="NUBI003ConfirmarEmailTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI003ConfirmarEmailTest" ></class>
+        </classes>
+    </test>
+
+    <test name="NUBI004ValidarDatosPersonalesScreenTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI004ValidarDatosPersonalesScreenTest" ></class>
+        </classes>
+    </test>
+
+
+
+    <test name="NUBI006ValidarCuilScreenTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI006ValidarCuilScreenTest" ></class>
+        </classes>
+    </test>
+
+    <test name="NUBI007UsuarioPasswordScreenTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI007UsuarioPasswordScreenTest" ></class>
+        </classes>
+    </test>
+    <test name="NUBI008PhoneValidationScreenTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI008PhoneValidationScreenTest" ></class>
+        </classes>
+    </test>
+
+    <test name="NUBI009TermsAndConditionsScreenTest">
+        <classes>
+            <class name="com.nubi.testcases.registro.email.NUBI009TermsAndConditionsScreenTest" ></class>
+        </classes>
+    </test>
+
+
+
+ </suite>
